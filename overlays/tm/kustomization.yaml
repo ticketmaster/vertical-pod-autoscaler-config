@@ -13,5 +13,25 @@ patches:
 - recommender-deployment.yaml
 - updater-deployment.yaml
 
+patchesJson6902:
+- path: admission-controller-deployment.json
+  target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: vpa-admission-controller
+- path: recommender-deployment.json
+  target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: vpa-recommender
+- path: updater-deployment.json
+  target:
+    version: v1
+    group: apps
+    kind: Deployment
+    name: vpa-updater
+
 resources:
 - tls-certs-secret.yaml
