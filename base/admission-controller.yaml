@@ -72,6 +72,7 @@ spec:
         name: admission-controller
         ports:
         - containerPort: 8000
+          name: http
         resources:
           limits:
             cpu: 200m
