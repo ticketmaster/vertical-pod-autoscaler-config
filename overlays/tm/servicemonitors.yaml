@@ -1,0 +1,46 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    component: admission-controller
+  name: vpa-admission-controller
+spec:
+  endpoints:
+  - interval: 30s
+    port: metrics
+  jobLabel: app
+  selector:
+    matchLabels:
+      component: admission-controller
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    component: recommender
+  name: vpa-recommender
+spec:
+  endpoints:
+  - interval: 30s
+    port: metrics
+  jobLabel: app
+  selector:
+    matchLabels:
+      component: recommender
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    component: updater
+  name: vpa-updater
+spec:
+  endpoints:
+  - interval: 30s
+    port: metrics
+  jobLabel: app
+  selector:
+    matchLabels:
+      component: updater
+...

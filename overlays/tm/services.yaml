@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: admission-controller
+  name: vpa-admission-controller
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 8944
+    protocol: TCP
+  selector:
+    component: admission-controller
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: recommender
+  name: vpa-recommender
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 8942
+    protocol: TCP
+  selector:
+    component: recommender
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: updater
+  name: vpa-updater
+spec:
+  clusterIP: None
+  ports:
+  - name: metrics
+    port: 8943
+    protocol: TCP
+  selector:
+    component: updater
+...

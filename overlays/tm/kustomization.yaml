@@ -34,4 +34,6 @@ patchesJson6902:
     name: vpa-updater
 
 resources:
+- servicemonitors.yaml
+- services.yaml
 - tls-certs-secret.yaml
