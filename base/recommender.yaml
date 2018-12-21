@@ -92,6 +92,7 @@ spec:
         name: recommender
         ports:
         - containerPort: 8080
+          name: http
         resources:
           limits:
             cpu: 200m

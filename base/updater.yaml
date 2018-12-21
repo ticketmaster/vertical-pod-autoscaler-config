@@ -96,6 +96,7 @@ spec:
         name: updater
         ports:
         - containerPort: 8080
+          name: http
         resources:
           limits:
             cpu: 200m
