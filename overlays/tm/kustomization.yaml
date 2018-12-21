@@ -1,5 +1,6 @@
 bases:
-- github.com/ticketmaster/vertical-pod-autoscaler-config//base
+# - github.com/ticketmaster/vertical-pod-autoscaler-config//base
+- ../../base
 
 commonLabels:
   app: vertical-pod-autoscaler
