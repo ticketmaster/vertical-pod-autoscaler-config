@@ -6,6 +6,15 @@ commonLabels:
   inventoryCode: vertical-pod-autoscaler
   productCode: prd354
 
+configurations:
+- config/commonannotations.yaml
+- config/commonlabels.yaml
+- config/nameprefix.yaml
+- config/namereference.yaml
+- config/namespace.yaml
+- config/servicemonitor.yaml
+- config/varreference.yaml
+
 namespace: prd354
 
 patches:
