@@ -62,6 +62,9 @@ metadata:
     component: admission-controller
   name: vpa-admission-controller
 spec:
+  selector:
+    matchLabels:
+      component: admission-controller
   template:
     metadata:
       labels:

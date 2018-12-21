@@ -86,6 +86,9 @@ metadata:
     component: updater
   name: vpa-updater
 spec:
+  selector:
+    matchLabels:
+      component: updater
   template:
     metadata:
       labels:

@@ -82,6 +82,9 @@ metadata:
     component: recommender
   name: vpa-recommender
 spec:
+  selector:
+    matchLabels:
+      component: recommender
   template:
     metadata:
       labels:
