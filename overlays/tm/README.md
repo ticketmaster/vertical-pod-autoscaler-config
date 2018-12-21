@@ -5,7 +5,7 @@ bases:
 - github.com/ticketmaster/vertical-pod-autoscaler-config//base
 ```
 
-Use the manifests in the `/base` directory of thise repository as the base for this overlay.
+Use the manifests in the `/base` directory of this repository as the base for this overlay.
 
 ```yaml
 commonLabels:
