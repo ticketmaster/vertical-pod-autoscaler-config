@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vpa-recommender
+spec:
+  template:
+    metadata:
+      labels:
+        tier: app
+    spec:
+      securityContext:
+        runAsUser: 65534

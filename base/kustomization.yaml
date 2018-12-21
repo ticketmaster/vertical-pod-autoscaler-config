@@ -1,0 +1,19 @@
+commonLabels:
+  app: vertical-pod-autoscaler
+
+imageTags:
+- name: k8s.gcr.io/vpa-admission-controller
+  newTag: 0.3.0
+- name: k8s.gcr.io/vpa-recommender
+  newTag: 0.3.0
+- name: k8s.gcr.io/vpa-updater
+  newTag: 0.3.0
+
+namespace: kube-system
+
+resources:
+- actor-rbac.yaml
+- admission-controller.yaml
+- crds.yaml
+- recommender.yaml
+- updater.yaml

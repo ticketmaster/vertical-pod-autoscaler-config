@@ -1,0 +1,104 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: admission-controller
+  name: vpa-admission-controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    component: admission-controller
+  name: system:vpa-admission-controller
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - configmaps
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+- apiGroups:
+  - autoscaling.k8s.io
+  resources:
+  - verticalpodautoscalers
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    component: admission-controller
+  name: system:vpa-admission-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:vpa-admission-controller
+subjects:
+- kind: ServiceAccount
+  name: vpa-admission-controller
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: admission-controller
+  name: vpa-admission-controller
+spec:
+  template:
+    metadata:
+      labels:
+        component: admission-controller
+    spec:
+      containers:
+      - image: k8s.gcr.io/vpa-admission-controller
+        name: admission-controller
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: 200m
+            memory: 500Mi
+          requests:
+            cpu: 50m
+            memory: 200Mi
+        volumeMounts:
+        - name: tls-certs
+          mountPath: /etc/tls-certs
+          readOnly: true
+      serviceAccountName: vpa-admission-controller
+      volumes:
+      - name: tls-certs
+        secret:
+          secretName: vpa-tls-certs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    component: admission-controller
+  name: vpa-webhook
+spec:
+  ports:
+  - port: 443
+    targetPort: 8000
+  selector:
+    component: admission-controller
+...

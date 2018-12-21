@@ -1,0 +1,17 @@
+bases:
+- github.com/ticketmaster/vertical-pod-autoscaler-config//base
+
+commonLabels:
+  app: vertical-pod-autoscaler
+  inventoryCode: vertical-pod-autoscaler
+  productCode: prd354
+
+namespace: prd354
+
+patches:
+- admission-controller-deployment.yaml
+- recommender-deployment.yaml
+- updater-deployment.yaml
+
+resources:
+- tls-certs-secret.yaml

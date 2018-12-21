@@ -1,0 +1,107 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    component: updater
+  name: vpa-updater
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    component: updater
+  name: system:vpa-controllers-reader
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - replicationcontrollers
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    component: updater
+  name: system:vpa-evictor
+rules:
+- apiGroups:
+  - extensions
+  resources:
+  - replicasets
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - pods/eviction
+  verbs:
+  - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    component: updater
+  name: system:vpa-controllers-reader
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:vpa-controllers-reader
+subjects:
+- kind: ServiceAccount
+  name: vpa-updater
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    component: updater
+  name: system:vpa-evictor
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:evictor
+subjects:
+- kind: ServiceAccount
+  name: vpa-updater
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: updater
+  name: vpa-updater
+spec:
+  template:
+    metadata:
+      labels:
+        component: updater
+    spec:
+      containers:
+      - image: k8s.gcr.io/vpa-updater
+        name: updater
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 200m
+            memory: 1000Mi
+          requests:
+            cpu: 50m
+            memory: 500Mi
+      serviceAccountName: vpa-updater
+...
