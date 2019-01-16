@@ -7,6 +7,3 @@ spec:
     metadata:
       labels:
         tier: app
-    spec:
-      securityContext:
-        runAsUser: 65534

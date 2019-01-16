@@ -100,6 +100,8 @@ spec:
         ports:
         - containerPort: 8080
           name: http
+        - containerPort: 8943
+          name: metrics
         resources:
           limits:
             cpu: 200m
@@ -107,5 +109,7 @@ spec:
           requests:
             cpu: 50m
             memory: 500Mi
+      securityContext:
+        runAsUser: 65534
       serviceAccountName: vpa-updater
 ...

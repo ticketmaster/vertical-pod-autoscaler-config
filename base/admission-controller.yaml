@@ -81,6 +81,8 @@ spec:
         ports:
         - containerPort: 8000
           name: http
+        - containerPort: 8944
+          name: metrics
         resources:
           limits:
             cpu: 200m
@@ -92,6 +94,8 @@ spec:
         - name: tls-certs
           mountPath: /etc/tls-certs
           readOnly: true
+      securityContext:
+        runAsUser: 65534
       serviceAccountName: vpa-admission-controller
       volumes:
       - name: tls-certs
