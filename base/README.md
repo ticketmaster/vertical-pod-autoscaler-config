@@ -5,7 +5,7 @@ commonLabels:
   app: vertical-pod-autoscaler
 ```
 
-Add this label to every resource and use it in any `selector`s.
+Add this label to every resource and use it in any `selector`.
 
 ```yaml
 imageTags:
