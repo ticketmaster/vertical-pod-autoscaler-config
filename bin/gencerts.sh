@@ -53,7 +53,7 @@ openssl x509 -req -in ${TMP_DIR}/server.csr -CA ${TMP_DIR}/caCert.pem -CAkey ${T
 
 kubectl create secret --namespace=${NAMESPACE} generic vpa-tls-certs --from-file=${TMP_DIR}/caKey.pem \
   --from-file=${TMP_DIR}/caCert.pem --from-file=${TMP_DIR}/serverKey.pem --from-file=${TMP_DIR}/serverCert.pem \
-  --dry-run -o yaml > tls-certs-secret.yaml
+  --dry-run -o yaml
 
 # Clean up after we're done.
 echo "Deleting ${TMP_DIR}."
