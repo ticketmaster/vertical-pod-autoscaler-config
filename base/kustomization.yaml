@@ -3,11 +3,11 @@ commonLabels:
 
 imageTags:
 - name: k8s.gcr.io/vpa-admission-controller
-  newTag: 0.3.0
+  newTag: 0.3.1
 - name: k8s.gcr.io/vpa-recommender
-  newTag: 0.3.0
+  newTag: 0.3.1
 - name: k8s.gcr.io/vpa-updater
-  newTag: 0.3.0
+  newTag: 0.3.1
 
 namespace: kube-system
 

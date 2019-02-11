@@ -51,9 +51,8 @@ openssl req -new -key ${TMP_DIR}/serverKey.pem -out ${TMP_DIR}/server.csr \
 openssl x509 -req -in ${TMP_DIR}/server.csr -CA ${TMP_DIR}/caCert.pem -CAkey ${TMP_DIR}/caKey.pem \
   -CAcreateserial -out ${TMP_DIR}/serverCert.pem -days 100000 -extensions v3_req -extfile ${TMP_DIR}/server.conf
 
-kubectl create secret --namespace=${NAMESPACE} generic vpa-tls-certs --from-file=${TMP_DIR}/caKey.pem \
-  --from-file=${TMP_DIR}/caCert.pem --from-file=${TMP_DIR}/serverKey.pem --from-file=${TMP_DIR}/serverCert.pem \
-  --dry-run -o yaml
+kubectl create secret --namespace=${NAMESPACE} generic vpa-tls-certs --from-file=${TMP_DIR}/caCert.pem \
+  --from-file=${TMP_DIR}/serverKey.pem --from-file=${TMP_DIR}/serverCert.pem --dry-run -o yaml
 
 # Clean up after we're done.
 echo "Deleting ${TMP_DIR}."
